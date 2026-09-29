@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Day Window V2">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="app.css">
+<title>Day Window V2</title>
+</head>
+<body>
+<main class="app">
+<header class="top"><div><div class="eyebrow">Visualize your day · V2</div><h1>Day Window</h1></div><button id="jumpNow" class="pill" type="button">Now</button></header>
+<section class="card">
+<div class="summary"><div><div id="editLabel" class="eyebrow">New block</div><div id="range" class="range">1:00 – 3:30 PM</div></div><div><div class="muted small">Duration</div><div id="duration" class="duration">2h 30m</div></div></div>
+<label class="label" for="title">Name</label><input id="title" class="title" maxlength="40" placeholder="Class, gym, sleep, free time…">
+<div class="tabs"><button id="startTab" class="tab active" type="button"><small>Start</small><strong id="startText">1:00 PM</strong></button><button id="endTab" class="tab" type="button"><small>End</small><strong id="endText">3:30 PM</strong></button></div>
+<div class="settings">
+<div class="setting"><span>Time</span><div class="seg"><button id="format12" class="on" type="button">12 hour</button><button id="format24" type="button">24 hour</button></div></div>
+<div class="setting"><span>Appearance</span><div class="seg"><button id="minimal" type="button">Minimalist</button><button id="clock" class="on" type="button">Clock</button></div></div>
+</div>
+<div class="dialWrap"><svg id="dial" viewBox="0 0 400 400" role="slider" tabindex="0" aria-label="Time picker"><circle cx="200" cy="200" r="164" fill="var(--panel2)" stroke="var(--border)" stroke-width="1.5"/><g id="savedArcs"></g><g id="ticks"></g><path id="arc" fill="none" stroke-width="9" stroke-linecap="round" opacity=".8"/><line id="line" x1="200" y1="200" x2="200" y2="54" stroke="var(--accent)" stroke-width="2.5"/><circle cx="200" cy="200" r="5" fill="var(--accent)"/><g id="nums"></g><g id="startHandle"><circle r="18" fill="var(--panel)" stroke="var(--accent)" stroke-width="3"/><circle r="5" fill="var(--accent)"/></g><g id="endHandle"><circle r="18" fill="var(--accent)"/><circle r="5" fill="var(--panel)"/></g></svg></div>
+<div class="period"><button id="am" type="button">AM</button><button id="pm" type="button" class="on">PM</button></div>
+<div class="actions"><button id="save" class="primary" type="button">Add block</button><button id="new" class="secondary" type="button">New</button></div>
+</section>
+<section class="section"><div class="sectionHead"><div><div class="sectionTitle">Your day</div><div class="small muted">Color-coded blocks across 24 hours</div></div><label class="toggle"><input id="showNow" type="checkbox" checked> Show now</label></div><div class="dayStrip"><div class="grid"></div><div id="segments"></div><div id="nowLine" class="nowLine"></div><div id="nowDot" class="nowDot"></div></div><div class="labels"><span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span></div><div class="stats"><div class="stat"><span>Scheduled</span><strong id="scheduled">0h</strong></div><div class="stat"><span>Open time</span><strong id="open">24h</strong></div></div></section>
+<section class="section"><div class="sectionHead"><div><div class="sectionTitle">Blocks</div><div class="small muted">Each new block gets a distinct color</div></div></div><div id="blocks" class="list"></div></section>
+<section class="section"><div class="sectionHead"><div><div class="sectionTitle">Open windows</div><div class="small muted">Unscheduled time between blocks</div></div></div><div id="gaps" class="list"></div></section>
+<div class="footer"><span class="small muted">V2 saves separately from V1.</span><button id="clear" class="danger" type="button">Clear all</button></div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
