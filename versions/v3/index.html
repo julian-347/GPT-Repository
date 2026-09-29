@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Day Window V3">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Day Window V3</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f5f7;--panel:#fff;--panel2:#f0f1f4;--text:#111114;--muted:#77777e;--border:#d9d9df;--accent:#2f6df6;--soft:#dfe9ff;--danger:#d34a4a;--shadow:0 18px 50px rgba(0,0,0,.10)}
+@media(prefers-color-scheme:dark){:root{--bg:#090a0c;--panel:#15161a;--panel2:#1d1e23;--text:#f5f5f7;--muted:#9b9ba3;--border:#2d2f36;--accent:#729aff;--soft:#1f315f;--danger:#ff7373;--shadow:0 18px 50px rgba(0,0,0,.28)}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}body{min-height:100dvh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}button,input{font:inherit}button{cursor:pointer}.app{width:min(100%,720px);margin:auto;padding:18px 14px 34px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:2px 2px 16px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:800}.top h1{margin:3px 0 0;font-size:31px;letter-spacing:-.03em}.nowBtn{min-height:44px;padding:0 13px;border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-weight:800}.card{background:var(--panel);border:1px solid var(--border);border-radius:25px;padding:15px;box-shadow:var(--shadow)}
+.summary{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}.range{font-size:29px;font-weight:850;letter-spacing:-.035em;font-variant-numeric:tabular-nums}.duration{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}.muted{color:var(--muted)}label.small{display:block;font-size:12px;color:var(--muted);font-weight:800;margin:16px 0 7px 2px}.titleInput{width:100%;height:48px;border-radius:16px;border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:0 14px;font-size:17px;outline:none}.titleInput:focus{border-color:var(--accent)}
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.setting{border:1px solid var(--border);background:var(--panel2);border-radius:17px;padding:9px}.settingLabel{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.10em;margin:0 0 6px 2px}.segmented{display:grid;grid-template-columns:1fr 1fr;gap:5px}.seg{height:38px;border:1px solid transparent;border-radius:11px;background:transparent;color:var(--muted);font-weight:800;font-size:13px}.seg.on{background:var(--panel);color:var(--text);border-color:var(--border)}
+.dialWrap{position:relative;display:flex;justify-content:center;margin:14px auto 3px;max-width:430px}.dialStage{position:relative;width:min(100%,410px);aspect-ratio:1}.dialStage svg{width:100%;height:100%;display:block;touch-action:none;overflow:visible}.gestureHint{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);width:148px;text-align:center;pointer-events:none}.gestureHint strong{display:block;font-size:14px;letter-spacing:-.01em}.gestureHint span{display:block;color:var(--muted);font-size:11px;line-height:1.35;margin-top:5px}.gestureHint.armed strong{color:var(--text)}.gestureHint.recording strong{font-size:18px}.gestureHint.recording span{font-size:12px}
+.addDial{position:absolute;left:50%;bottom:18%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;border:2px solid var(--current,#2f6df6);background:var(--panel);color:var(--text);font-size:31px;line-height:1;font-weight:400;box-shadow:0 8px 22px rgba(0,0,0,.12);display:grid;place-items:center;z-index:5}.addDial:disabled{opacity:.35;cursor:default}.addDial:not(:disabled):active{transform:translateX(-50%) scale(.94)}.clearInline{display:flex;justify-content:center;margin-top:4px}.clearBtn{height:40px;padding:0 14px;border-radius:13px;border:1px solid color-mix(in srgb,var(--danger) 35%,var(--border));background:transparent;color:var(--danger);font-weight:800}.periodRow{display:flex;justify-content:center;gap:8px;margin-top:4px}.periodBtn{height:40px;padding:0 17px;border-radius:13px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-weight:800}.periodBtn.on{border-color:var(--accent);background:var(--soft)}.periodRow.hidden{display:none}
+.statusPill{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid var(--border);border-radius:999px;background:var(--panel2);font-size:12px;color:var(--muted);margin-top:10px}.statusDot{width:8px;height:8px;border-radius:50%;background:var(--current,#2f6df6)}
+.section{margin-top:17px}.sectionHead{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:0 2px 8px}.sectionTitle{font-size:17px;font-weight:850}.sectionNote{font-size:12px;color:var(--muted)}.dayStrip{position:relative;height:74px;border:1px solid var(--border);border-radius:20px;background:var(--panel);overflow:hidden}.gridlines{position:absolute;inset:0;background:linear-gradient(to right,transparent 24.8%,var(--border) 25%,transparent 25.2%,transparent 49.8%,var(--border) 50%,transparent 50.2%,transparent 74.8%,var(--border) 75%,transparent 75.2%)}.segBlock{position:absolute;top:10px;bottom:10px;border-radius:13px;min-width:3px}.nowLine{position:absolute;top:6px;bottom:6px;width:2px;background:var(--danger);z-index:5}.nowDot{position:absolute;top:3px;width:8px;height:8px;margin-left:-3px;border-radius:50%;background:var(--danger);z-index:6}.labels{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin:6px 3px 0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.stat{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:21px;font-variant-numeric:tabular-nums}.toggle{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}.toggle input{width:19px;height:19px;accent-color:var(--accent)}
+.list{display:flex;flex-direction:column;gap:9px}.row,.gapRow{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:12px 13px}.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.rowTitle{font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:8px}.dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}.rowTime{margin-top:3px;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}.rowActions{display:flex;gap:6px}.icon{width:42px;height:42px;border-radius:13px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:17px}.gapRow{display:flex;justify-content:space-between;gap:12px}.gapRow strong{font-variant-numeric:tabular-nums}.empty{border:1px dashed var(--border);border-radius:17px;padding:18px;text-align:center;color:var(--muted)}
+@media(max-width:520px){.settings{grid-template-columns:1fr}.app{padding-left:11px;padding-right:11px}.card{padding:13px}.range{font-size:26px}.dialWrap{margin-top:10px}.dialStage{width:min(100%,395px)}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top"><div><div class="eyebrow">Visualize your day · V3</div><h1>Day Window</h1></div><button id="jumpNow" class="nowBtn" type="button">Now</button></header>
+<section class="card">
+<div class="summary"><div><div id="editLabel" class="eyebrow">New block</div><div id="range" class="range">Drag out to select</div></div><div><div class="muted" style="font-size:12px">Duration</div><div id="duration" class="duration">—</div></div></div>
+<label class="small" for="title">Name</label><input id="title" class="titleInput" maxlength="40" placeholder="Class, gym, free time…">
+<div class="settings">
+  <div class="setting"><span class="settingLabel">Time</span><div class="segmented"><button id="format12" class="seg" type="button">12 hour</button><button id="format24" class="seg on" type="button">24 hour</button></div></div>
+  <div class="setting"><span class="settingLabel">Appearance</span><div class="segmented"><button id="minimal" class="seg" type="button">Minimalist</button><button id="clock" class="seg on" type="button">Clock</button></div></div>
+</div>
+<div class="dialWrap">
+  <div class="dialStage">
+    <svg id="dial" viewBox="0 0 400 400" aria-label="Day window radial selector">
+      <circle cx="200" cy="200" r="166" fill="var(--panel2)" stroke="var(--border)" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="130" fill="none" stroke="var(--border)" stroke-width="1" opacity=".5"/>
+      <g id="savedArcs"></g>
+      <g id="ticks"></g>
+      <path id="previewArc" fill="none" stroke="var(--current)" stroke-width="11" stroke-linecap="round" opacity=".95"/>
+      <line id="ghostLine" x1="200" y1="200" x2="200" y2="200" stroke="var(--current)" stroke-width="2" opacity="0"/>
+      <g id="nums"></g>
+      <g id="startHandle" opacity="0"><circle r="7" fill="var(--panel)" stroke="var(--current)" stroke-width="3"/></g>
+      <g id="endHandle" opacity="0"><circle r="8" fill="var(--current)"/></g>
+    </svg>
+    <div id="gestureHint" class="gestureHint"><strong>Drag outward</strong><span>Start anywhere inside. Recording begins when you reach the outer ring.</span></div>
+    <button id="addDial" class="addDial" type="button" aria-label="Add this time block" disabled>+</button>
+  </div>
+</div>
+<div id="periodRow" class="periodRow hidden"><button id="am" class="periodBtn on" type="button">AM</button><button id="pm" class="periodBtn" type="button">PM</button></div>
+<div class="clearInline"><button id="clear" class="clearBtn" type="button">Clear all</button></div>
+<div class="statusPill"><span class="statusDot"></span><span id="statusText">Next block color</span></div>
+</section>
+<section class="section"><div class="sectionHead"><div><div class="sectionTitle">Your day</div><div class="sectionNote">24-hour occupancy at a glance</div></div><label class="toggle"><input id="showNow" type="checkbox" checked> Show now</label></div><div class="dayStrip"><div class="gridlines"></div><div id="segments"></div><div id="nowLine" class="nowLine"></div><div id="nowDot" class="nowDot"></div></div><div class="labels"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><div class="stats"><div class="stat"><span>Scheduled</span><strong id="scheduled">0h</strong></div><div class="stat"><span>Open time</span><strong id="open">24h</strong></div></div></section>
+<section class="section"><div class="sectionHead"><div><div class="sectionTitle">Blocks</div><div class="sectionNote">Edit or remove a window</div></div></div><div id="blocks" class="list"></div></section>
+<section class="section"><div class="sectionHead"><div><div class="sectionTitle">Open windows</div><div class="sectionNote">Time between your blocks</div></div></div><div id="gaps" class="list"></div></section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
